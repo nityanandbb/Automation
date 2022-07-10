@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" ignored="0" total="1" passed="1">
+  <reporter-output>
+    <line>
+      <![CDATA[=====Browser Session Started=====]]>
+    </line>
+    <line>
+      <![CDATA[=====Application Started=====]]>
+    </line>
+    <line>
+      <![CDATA[=====Browser Session End=====]]>
+    </line>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="23895" started-at="2022-07-05T14:49:28 IST" finished-at="2022-07-05T14:49:52 IST">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="23895" started-at="2022-07-05T14:49:28 IST" finished-at="2022-07-05T14:49:52 IST">
+      <class name="test.Test_Sorting_of_All_Desktop_products">
+        <test-method status="PASS" signature="setupApplication()[pri:0, instance:test.Test_Sorting_of_All_Desktop_products@134593bf]" name="setupApplication" is-config="true" duration-ms="6570" started-at="2022-07-05T14:49:28 IST" finished-at="2022-07-05T14:49:35 IST">
+          <reporter-output>
+            <line>
+              <![CDATA[=====Browser Session Started=====]]>
+            </line>
+            <line>
+              <![CDATA[=====Application Started=====]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- setupApplication -->
+        <test-method status="PASS" signature="Get_All_Desktop_Page()[pri:0, instance:test.Test_Sorting_of_All_Desktop_products@134593bf]" name="Get_All_Desktop_Page" duration-ms="17003" started-at="2022-07-05T14:49:35 IST" finished-at="2022-07-05T14:49:52 IST">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- Get_All_Desktop_Page -->
+        <test-method status="PASS" signature="closeApplication()[pri:0, instance:test.Test_Sorting_of_All_Desktop_products@134593bf]" name="closeApplication" is-config="true" duration-ms="257" started-at="2022-07-05T14:49:52 IST" finished-at="2022-07-05T14:49:52 IST">
+          <reporter-output>
+            <line>
+              <![CDATA[=====Browser Session End=====]]>
+            </line>
+          </reporter-output>
+        </test-method> <!-- closeApplication -->
+      </class> <!-- test.Test_Sorting_of_All_Desktop_products -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
