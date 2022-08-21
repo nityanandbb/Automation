@@ -11,22 +11,29 @@ import frameworkpackage.BaseDriver;
 
 public class FeatureProducts extends BaseDriver {
 
-	WebDriver driver;
-	public List<WebElement> WebElement;
+   // WebDriver driver = null;
+	
 
 	public FeatureProducts(WebDriver driver) {
 
-		driver = this.getDriver();
+	  driver = this.getDriver();
+	 
 	}
+
+	public By productNameList =By.xpath("//div[@class='caption']"); // /h4
 
 	String productNames;
 	String productPrice;
 	List<String> productDetails = new ArrayList<>();
 
-	public List<String> getProductNameAndPrice(WebDriver driver) {
-
-		List<WebElement> productName = driver.findElements(By.xpath("//div[@class='caption']")); // /h4
-
+	
+	public List<String> getProductNameAndPrice() {
+		
+		
+	//	By productNameList =By.xpath("//div[@class='caption']"); // /h4
+		
+		List<WebElement> productName= driver.findElements(productNameList);
+		
 		for (WebElement webElement : productName) {
 
 			productNames = webElement.findElement(By.tagName("h4")).getText();
@@ -34,9 +41,15 @@ public class FeatureProducts extends BaseDriver {
 			productDetails.add(productNames);
 			productDetails.add(productPrice);
 
+			System.out.println(productDetails);
+			
 		}
 		System.out.println("return Block");
 		return (productDetails);
+		
 	}
 
+	
+	
+	
 }

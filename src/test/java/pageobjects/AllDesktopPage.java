@@ -1,94 +1,113 @@
 package pageobjects;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import frameworkpackage.BaseDriver;
+import junit.framework.Assert;
 
 public class AllDesktopPage extends BaseDriver {
 
-	WebDriver driver;
+	// WebDriver driver;
 
-	public List<WebElement> WebElement;
+	public By desktopTab = By.xpath("//ul[@class='nav navbar-nav']/li[1]");
+
+	public By getallDesktopBtn = By.xpath("//div[@class='dropdown-menu']/a[1]");
+
+	public By productNameList = By.xpath("//div[@class='caption']"); // 
+
+	List<WebElement> productName = driver.findElements(productNameList);
+
+	public By productNameData = By.xpath("//div[@class='caption']/h4");
+	public By productPriceData = By.xpath("//*[@class='price']");
+
+	List<String> originalproductDetails = new ArrayList<>();
+	List<String> originalProductNameList = new ArrayList<>();
+	List<String> originalProductPriceList = new ArrayList<>();
+
+	String originalproductNames;
+	String originalproductPrice;
+
+	
+	List<String> productDetails = new ArrayList<>();
 
 	public AllDesktopPage(WebDriver driver) {
 
 		driver = this.getDriver();
 	}
 
-	public WebElement openAllDesktopPage(WebDriver driver) {
+	public WebElement openAllDesktopPag() {
 
-		WebElement desktopTab = driver.findElement(By.xpath("//ul[@class='nav navbar-nav']/li[1]"));
+		driver.findElement(desktopTab).click();
 
-		desktopTab.click();
-
-		WebElement allDesktopBtn = desktopTab.findElement(By.xpath("//div[@class='dropdown-menu']/a[1]"));
+		WebElement allDesktopBtn = driver.findElement(desktopTab).findElement(getallDesktopBtn);
 
 		return allDesktopBtn;
 
 	}
 
-	public WebElement sortProductsAtoZ(WebDriver driver) {
+	public List<String> getProductNameAndPrice() {
 
-		WebElement SortBtn = driver.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']/div/select[1]"));
+		List<WebElement> productName = driver.findElements(productNameList);
 
-		WebElement sortingOptions = SortBtn
-				.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']/div/select[1]/option"));
+		for (WebElement webElement : productName) {
 
-		WebElement aTozSorting = sortingOptions.findElement(By.xpath("//*[@id='input-sort']/option[2]")); // ("Name (A
-																											// -
-																											// Z)")).click();
+			originalproductNames = webElement.findElement(By.tagName("h4")).getText();
+			originalproductPrice = webElement.findElement(By.className("price")).getText();
+			originalproductDetails.add(originalproductNames);
+			originalproductDetails.add(originalproductPrice);
 
-		return aTozSorting;
+			// Adding to To Below array for comparing results
+			originalProductNameList.add(originalproductNames);
+			originalProductNameList.add(originalproductPrice);
 
-	}
+			System.out.println(originalproductDetails);
 
-	public WebElement sortProductsZtoA(WebDriver driver) {
+		}
 
-		WebElement sortBtn = driver.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']/div/select[1]"));
-
-		WebElement sortingOptions = sortBtn
-				.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']/div/select[1]/option"));
-
-		WebElement zToaSorting = sortingOptions.findElement(By.xpath("//*[@id='input-sort']/option[3]")); // ("Name (A
-																											// -
-																											// Z)")).click();
-
-		return zToaSorting;
+		return (originalproductDetails);
 
 	}
 
-	public WebElement sortProductsPriceLowtoHigh(WebDriver driver) {
-		WebElement sortBtn = driver.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']/div/select[1]"));
+	public List<String> sortyByproduct(String SortByVisibleText) {
 
-		WebElement sortingOptions = sortBtn
-				.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']/div/select[1]/option"));
+		Select selectSort = new Select(driver.findElement(By.xpath("//select[@id='input-sort']")));
 
-		WebElement priceLowToHighSorting = sortingOptions.findElement(By.xpath("//*[@id='input-sort']/option[4]")); // ("Name
-																													// (A
-																													// -
-																													// Z)")).click();
+		selectSort.selectByVisibleText(SortByVisibleText);
 
-		return priceLowToHighSorting;
+		List<WebElement> productNamesList = driver.findElements(productNameData);
+		List<WebElement> productPriceList = driver.findElements(productPriceData);
 
-	}
+		// Using java streams.
+		List<String> actualproductNames = productNamesList.stream().map(s -> s.getText()).collect(Collectors.toList());
 
-	public WebElement sortProductsPriceHightoLow_(WebDriver driver) {
-		WebElement sortBtn = driver.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']/div/select[1]"));
+		List<String> actualproductPrice = productPriceList.stream().map(s -> s.getText()).collect(Collectors.toList());
 
-		WebElement sortingOptions = sortBtn
-				.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']/div/select[1]/option"));
+		Assert.assertTrue(originalproductNames.equals(actualproductNames));
 
-		WebElement priceHighToLowSorting = sortingOptions.findElement(By.xpath("//*[@id='input-sort']/option[4]")); // ("Name
-																													// (A
-																													// -
-																													// Z)")).click();
+		Assert.assertTrue(originalproductPrice.equals(actualproductNames));
 
-		return priceHighToLowSorting;
+		// If using for loop then use below code
 
+		/*
+		 * for (WebElement webElement : productName) {
+		 * 
+		 * productNames = webElement.findElement(By.tagName("h4")).getText();
+		 * productPrice = webElement.findElement(By.className("price")).getText();
+		 * productDetails.add(productNames); productDetails.add(productPrice);
+		 * 
+		 * System.out.println(productDetails); }
+		 */
+
+		// System.out.println("Product details = "+productDetails);
+
+		return productDetails;
 	}
 
 }
