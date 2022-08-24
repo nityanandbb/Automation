@@ -22,7 +22,7 @@ public class TestSortingOfAllDesktopProducts extends  BaseDriver {
 	
 		//  Available  sorting options list  :-  Default ,  Name (A - Z), Name (Z - A) , Price (Low > High) , Price (High > Low) ,
 	   //	Rating (Highest) , Rating (Lowest) , Model (A - Z) , Model (Z - A) ,
-		
+		// Select any one of the above index
 		
 	
 	}
