@@ -12,7 +12,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseDriver {
 
-	WebDriver driver = null;
+	public  static WebDriver driver;
 
 	public WebDriver getDriver() {
 
@@ -27,7 +27,7 @@ public class BaseDriver {
 
 		WebDriverManager.chromedriver().setup();
 
-		driver = new ChromeDriver();
+		 driver = new ChromeDriver();
 
 		driver.manage().window().maximize();
 
@@ -44,4 +44,6 @@ public class BaseDriver {
 		Reporter.log("=====Browser Session End=====", true);
 	}
 
+	
+	
 }
